@@ -1,0 +1,421 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revisão do quiz (interno)</title>
+<style>
+  :root {
+    --font-display: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
+    --font-body: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, 'Cascadia Code', 'Consolas', 'SFMono-Regular', Menlo, monospace;
+    --ink: #2B2118;
+    --ink-soft: #6B5D52;
+    --paper: #FFF8F1;
+    --paper-raised: #FFFFFF;
+    --line: #EFE2D4;
+    --shadow: rgba(120, 72, 40, 0.16);
+    --accent: #E63946;
+    --accent-dark: #C22733;
+    --marinada: #C1502E;
+    --marinada-soft: rgba(193, 80, 46, 0.14);
+    --tempero: #B9852B;
+    --tempero-soft: rgba(185, 133, 43, 0.14);
+    --praticidade: #3E6F8E;
+    --praticidade-soft: rgba(62, 111, 142, 0.14);
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .tool-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--paper-raised);
+    border-bottom: 1px solid var(--line);
+    padding: 10px clamp(12px, 3vw, 32px);
+  }
+  .tool-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 8px;
+  }
+  .tool-label b { color: var(--accent); }
+  .jump-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .jump-pill {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink-soft);
+    border-radius: 999px;
+    padding: 5px 11px;
+    cursor: pointer;
+  }
+  .jump-pill:hover { border-color: var(--ink-soft); color: var(--ink); }
+  .jump-pill.current { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .jump-pill.result-pill.current.marinadas { background: var(--marinada); border-color: var(--marinada); }
+  .jump-pill.result-pill.current.temperos { background: var(--tempero); border-color: var(--tempero); }
+  .jump-pill.result-pill.current.praticidade { background: var(--praticidade); border-color: var(--praticidade); }
+
+  .stage-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(20px, 4vw, 40px);
+  }
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: min(600px, 100%);
+    margin-bottom: 16px;
+  }
+  .nav-btn {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 14px;
+    border: 1px solid var(--line);
+    background: var(--paper-raised);
+    color: var(--ink);
+    border-radius: 999px;
+    padding: 10px 18px;
+    cursor: pointer;
+  }
+  .nav-btn:hover { border-color: var(--ink-soft); }
+  .nav-btn:active { transform: scale(0.97); }
+  .nav-count {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stage { width: min(600px, 100%); }
+  .card {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: clamp(28px, 5vw, 48px);
+    box-shadow: 0 1px 2px var(--shadow), 0 18px 40px -24px var(--shadow);
+  }
+
+  .brandmark { display: flex; align-items: center; gap: 12px; margin: 0 0 22px; }
+  .brandmark-badge {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px -4px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  .brandmark-badge svg { width: 100%; height: 100%; display: block; }
+  .brandmark-text { line-height: 1.25; }
+  .brandmark-title { font-family: var(--font-display); font-weight: 700; font-size: 17px; color: var(--ink); }
+  .brandmark-sub {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .kicker {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: right;
+    margin: 0 0 4px;
+  }
+
+  h1, h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 14px;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  h1 { font-size: clamp(26px, 4.6vw, 34px); }
+  h2 { font-size: clamp(22px, 4vw, 28px); }
+
+  .tagline { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(16px, 2.6vw, 19px); margin: 0 0 18px; }
+
+  p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0 0 22px;
+    max-width: 62ch;
+    text-align: justify;
+    text-align-last: left;
+    hyphens: auto;
+  }
+
+  .btn {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    border-radius: 999px;
+    padding: 15px 24px;
+    cursor: default;
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 8px 22px -6px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option {
+    text-align: left;
+    width: 100%;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-size: 15.5px;
+    line-height: 1.45;
+  }
+
+  .result-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  .result-badge.marinadas { background: var(--marinada-soft); color: var(--marinada); }
+  .result-badge.temperos { background: var(--tempero-soft); color: var(--tempero); }
+  .result-badge.praticidade { background: var(--praticidade-soft); color: var(--praticidade); }
+  .result-cta.marinadas { background: var(--marinada); box-shadow: 0 8px 22px -6px color-mix(in srgb, var(--marinada) 55%, transparent); }
+  .result-cta.temperos { background: var(--tempero); box-shadow: 0 8px 22px -6px color-mix(in srgb, var(--tempero) 55%, transparent); }
+  .result-cta.praticidade { background: var(--praticidade); box-shadow: 0 8px 22px -6px color-mix(in srgb, var(--praticidade) 55%, transparent); }
+
+  .breakdown { margin: 28px 0 8px; padding-top: 22px; border-top: 1px solid var(--line); }
+  .breakdown-title { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 14px; }
+  .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .bar-label { width: 96px; flex-shrink: 0; font-size: 13.5px; color: var(--ink-soft); }
+  .bar-track { flex: 1; height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-fill.marinadas { background: var(--marinada); }
+  .bar-fill.temperos { background: var(--tempero); }
+  .bar-fill.praticidade { background: var(--praticidade); }
+  .bar-count { width: 20px; text-align: right; font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+
+  .logo-svg { width: 100%; height: 100%; display: block; }
+</style>
+
+<div class="tool-bar">
+  <p class="tool-label">Revis&atilde;o interna &middot; <b>tempor&aacute;rio</b> &middot; n&atilde;o &eacute; a p&aacute;gina do cliente</p>
+  <div class="jump-row" id="jump-row"></div>
+</div>
+
+<div class="stage-wrap">
+  <div class="nav-row">
+    <button class="nav-btn" id="btn-prev">&larr; Voltar</button>
+    <span class="nav-count" id="nav-count"></span>
+    <button class="nav-btn" id="btn-next">Avan&ccedil;ar &rarr;</button>
+  </div>
+  <div class="stage">
+    <div class="card" id="card"></div>
+  </div>
+</div>
+
+<template id="logo-template">
+  <span class="brandmark-badge" aria-hidden="true">
+    <svg class="logo-svg" viewBox="0 0 512 512" role="img" aria-label="Chef Gui" xmlns="http://www.w3.org/2000/svg">
+      <rect width="512" height="512" rx="112" fill="#E63946"/>
+      <path d="M256 150c-26-40-70-52-104-46 4 34 24 70 66 82" fill="#3F8F52"/>
+      <path d="M256 150c26-40 70-52 104-46-4 34-24 70-66 82" fill="#348045"/>
+      <circle cx="256" cy="300" r="128" fill="#FFF8F1"/>
+      <circle cx="256" cy="300" r="128" fill="none" stroke="#C22733" stroke-width="10" opacity="0.25"/>
+      <ellipse cx="212" cy="256" rx="30" ry="22" fill="#E63946" opacity="0.14"/>
+      <g stroke="#C22733" stroke-width="14" stroke-linecap="round" fill="none">
+        <path d="M224 258v84"/>
+        <path d="M288 258v84"/>
+      </g>
+    </svg>
+  </span>
+</template>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const logoHTML = document.getElementById('logo-template').innerHTML;
+
+  const questions = [
+    { text: "Pensando na sua rotina, qual frase mais parece com você?", options: ["Chego cansado(a) e preciso resolver o jantar rápido", "Minhas carnes ficam com gostos parecidos e sem graça", "Eu não sei bem como usar os temperos na minha comida"] },
+    { text: "O que mais te incomoda na cozinha hoje?", options: ["Minhas carnes ficam sem gosto por dentro", "Sempre uso os mesmos temperos e a comida enjoa", "Perco tempo demais entre descongelar, cozinhar, cortar e limpar"] },
+    { text: "Num almoço especial ou churrasco, o que você mais quer garantir?", options: ["Quero impressionar com uma combinação de temperos diferente", "Quero algo gostoso que não tome meu dia inteiro", "Quero a carne macia e saborosa por dentro"] },
+    { text: "Quanto tempo livre você costuma ter pra cozinhar num dia comum de semana?", options: ["Pouquíssimo, e preciso de soluções rápidas", "Um tempinho, e gosto de me planejar com antecedência", "Tempo moderado, gosto de caprichar no sabor"] },
+    { text: "Qual elogio você mais gostaria de ouvir sobre a sua comida?", options: ["“Que tempero incrível, o que você colocou?”", "“Nossa, essa carne tá tão macia e saborosa!”", "“Como você faz isso tão rápido e ainda fica bom?”"] },
+    { text: "Se você pudesse resolver só UM problema na cozinha agora, qual seria?", options: ["Falta de tempo e organização no dia a dia", "Comida seca ou sem sabor por dentro", "Falta de variedade e criatividade no tempero"] },
+    { text: "Como você prefere se planejar pras refeições?", options: ["Decido na hora, mas gosto de caprichar no sabor", "Planejo com antecedência e deixo tudo pronto", "Decido na hora e preciso ser rápido(a)"] },
+    { text: "O que mais faria diferença na sua cozinha hoje?", options: ["Carnes mais suculentas e com mais sabor por dentro", "Misturas de temperos pra usar no dia a dia", "Atalhos e dicas pra ganhar tempo e organização"] }
+  ];
+
+  const results = {
+    marinadas: {
+      badge: "Você é do time Marinadas",
+      title: "Guia de Marinadas",
+      tagline: "Sabor que entra até o osso.",
+      body: "Se você quer aprender a dar um up no preparo das suas carnes para o almoço ou até mesmo aquele churrasquinho do final de semana, o Guia de Marinadas é o melhor! Aprenda a usar as combinações e quantidades corretas de ingredientes que deixarão seus preparos mais saborosos por dentro, não só por fora.",
+      cta: "Quero o Guia de Marinadas",
+      scores: { marinadas: 8, temperos: 0, praticidade: 0 }
+    },
+    temperos: {
+      badge: "Você é do time Temperos",
+      title: "Guia de Temperos",
+      tagline: "Uma pitada de criatividade em cada prato.",
+      body: "Você quer sair daquele gosto parecido entre todas as comidas? O Guia de Temperos é para você. Ele mostra combinações certeiras para dar personalidade a qualquer prato do dia a dia, sem precisar de ingredientes complicados.",
+      cta: "Quero o Guia de Temperos",
+      scores: { marinadas: 0, temperos: 8, praticidade: 0 }
+    },
+    praticidade: {
+      badge: "Você é do time Praticidade",
+      title: "Guia de Praticidade na Cozinha",
+      tagline: "Comida boa não devia dar trabalho.",
+      body: "Sua rotina é corrida e o que você mais precisa é ganhar tempo sem abrir mão de comer bem. O Guia de Praticidade te dá atalhos, organização e soluções rápidas pra colocar uma refeição de verdade na mesa sem virar a cozinha de cabeça pra baixo. Separe cerca de 2 a 3 horas do domingo pra ter mais praticidade na semana: comida fresca e sem gosto de congelador.",
+      cta: "Quero o Guia de Praticidade na Cozinha",
+      scores: { marinadas: 0, temperos: 0, praticidade: 8 }
+    }
+  };
+
+  // Slide list: 0 = intro, 1-8 = questions, 9-11 = results
+  const slides = [
+    { type: "intro" },
+    ...questions.map((q, i) => ({ type: "question", index: i })),
+    { type: "result", key: "marinadas" },
+    { type: "result", key: "temperos" },
+    { type: "result", key: "praticidade" }
+  ];
+
+  const jumpDefs = [
+    { label: "Início", slide: 0 },
+    ...questions.map((_, i) => ({ label: "P" + (i + 1), slide: i + 1 })),
+    { label: "Marinadas", slide: 9, result: "marinadas" },
+    { label: "Temperos", slide: 10, result: "temperos" },
+    { label: "Praticidade", slide: 11, result: "praticidade" }
+  ];
+
+  let current = 0;
+  const card = document.getElementById('card');
+  const jumpRow = document.getElementById('jump-row');
+  const navCount = document.getElementById('nav-count');
+
+  function renderJumpRow() {
+    jumpRow.innerHTML = '';
+    jumpDefs.forEach(def => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'jump-pill' + (def.result ? ' result-pill' : '') + (def.slide === current ? ' current' + (def.result ? ' ' + def.result : '') : '');
+      b.textContent = def.label;
+      b.addEventListener('click', () => { current = def.slide; render(); });
+      jumpRow.appendChild(b);
+    });
+  }
+
+  function renderCard() {
+    const slide = slides[current];
+
+    if (slide.type === 'intro') {
+      card.innerHTML =
+        '<div class="brandmark">' + logoHTML +
+        '<div class="brandmark-text"><p class="brandmark-title">Chef Gui</p><p class="brandmark-sub">Guias de Cozinha</p></div></div>' +
+        '<p class="kicker">Quiz · 8 perguntas</p>' +
+        '<h1>Qual dos 3 guias é o seu?</h1>' +
+        '<p>Marinadas, Temperos ou Praticidade na Cozinha? Responda 8 perguntas rápidas sobre como você realmente cozinha no dia a dia e a gente te mostra qual guia vai fazer mais diferença na sua cozinha agora.</p>' +
+        '<span class="btn">Começar o quiz</span>';
+      return;
+    }
+
+    if (slide.type === 'question') {
+      const q = questions[slide.index];
+      const optsHTML = q.options.map(o => '<div class="option">' + o + '</div>').join('');
+      card.innerHTML =
+        '<p class="kicker">Pergunta ' + String(slide.index + 1).padStart(2, '0') + ' / 08</p>' +
+        '<h2>' + q.text + '</h2>' +
+        '<div class="options">' + optsHTML + '</div>';
+      return;
+    }
+
+    if (slide.type === 'result') {
+      const r = results[slide.key];
+      const order = ['marinadas', 'temperos', 'praticidade'];
+      const labels = { marinadas: 'Marinadas', temperos: 'Temperos', praticidade: 'Praticidade' };
+      const barsHTML = order.map(k => {
+        const pct = (r.scores[k] / 8) * 100;
+        return '<div class="bar-row">' +
+          '<span class="bar-label">' + labels[k] + '</span>' +
+          '<div class="bar-track"><div class="bar-fill ' + k + '" style="width:' + pct + '%"></div></div>' +
+          '<span class="bar-count">' + r.scores[k] + '</span>' +
+        '</div>';
+      }).join('');
+      card.innerHTML =
+        '<div class="brandmark">' + logoHTML +
+        '<div class="brandmark-text"><p class="brandmark-title">Chef Gui</p><p class="brandmark-sub">Guias de Cozinha</p></div></div>' +
+        '<span class="result-badge ' + slide.key + '">' + r.badge + '</span>' +
+        '<h1>' + r.title + '</h1>' +
+        '<p class="tagline">' + r.tagline + '</p>' +
+        '<p>' + r.body + '</p>' +
+        '<div class="breakdown"><p class="breakdown-title">Seu perfil de sabor</p>' + barsHTML + '</div>' +
+        '<div class="actions">' +
+          '<span class="btn result-cta ' + slide.key + '">' + r.cta + '</span>' +
+          '<span class="btn btn-ghost">Refazer o quiz</span>' +
+        '</div>';
+      return;
+    }
+  }
+
+  function render() {
+    renderCard();
+    renderJumpRow();
+    navCount.textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  document.getElementById('btn-prev').addEventListener('click', () => {
+    current = (current - 1 + slides.length) % slides.length;
+    render();
+  });
+  document.getElementById('btn-next').addEventListener('click', () => {
+    current = (current + 1) % slides.length;
+    render();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') document.getElementById('btn-prev').click();
+    if (e.key === 'ArrowRight') document.getElementById('btn-next').click();
+  });
+
+  render();
+});
+</script>
