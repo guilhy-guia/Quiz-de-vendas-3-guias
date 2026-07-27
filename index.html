@@ -94,18 +94,6 @@
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(480px 380px at 8% 10%, color-mix(in srgb, var(--marinada) 20%, transparent), transparent 70%),
-      radial-gradient(520px 420px at 92% 18%, color-mix(in srgb, var(--tempero) 22%, transparent), transparent 70%),
-      radial-gradient(560px 460px at 50% 100%, color-mix(in srgb, var(--praticidade) 20%, transparent), transparent 70%);
-    opacity: 0.55;
-  }
 
   .stage {
     position: relative;
@@ -134,10 +122,10 @@
     width: 44px;
     height: 44px;
     border-radius: 16px;
-    background: var(--accent);
+    overflow: hidden;
     box-shadow: 0 8px 20px -4px color-mix(in srgb, var(--accent) 55%, transparent);
   }
-  .brandmark-badge svg { width: 24px; height: 24px; }
+  .brandmark-badge svg { width: 100%; height: 100%; display: block; }
   .brandmark-text { line-height: 1.25; }
   .brandmark-title {
     font-family: var(--font-display);
@@ -344,13 +332,17 @@
     <section id="screen-intro" class="screen active">
       <div class="brandmark">
         <span class="brandmark-badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5" y="15" width="14" height="3" fill="#fff"/>
-            <path d="M6 20h12a1 1 0 0 0 1-1v-2H5v2a1 1 0 0 0 1 1z" fill="#fff"/>
-            <rect x="7" y="9" width="10" height="7" fill="#fff"/>
-            <circle cx="8" cy="10" r="4" fill="#fff"/>
-            <circle cx="12" cy="7" r="4.6" fill="#fff"/>
-            <circle cx="16" cy="10" r="4" fill="#fff"/>
+          <svg viewBox="0 0 512 512" role="img" aria-label="Chef Gui" xmlns="http://www.w3.org/2000/svg">
+            <rect width="512" height="512" rx="112" fill="#E63946"/>
+            <path d="M256 150c-26-40-70-52-104-46 4 34 24 70 66 82" fill="#3F8F52"/>
+            <path d="M256 150c26-40 70-52 104-46-4 34-24 70-66 82" fill="#348045"/>
+            <circle cx="256" cy="300" r="128" fill="#FFF8F1"/>
+            <circle cx="256" cy="300" r="128" fill="none" stroke="#C22733" stroke-width="10" opacity="0.25"/>
+            <ellipse cx="212" cy="256" rx="30" ry="22" fill="#E63946" opacity="0.14"/>
+            <g stroke="#C22733" stroke-width="14" stroke-linecap="round" fill="none">
+              <path d="M224 258v84"/>
+              <path d="M288 258v84"/>
+            </g>
           </svg>
         </span>
         <div class="brandmark-text">
@@ -377,13 +369,17 @@
     <section id="screen-result" class="screen">
       <div class="brandmark">
         <span class="brandmark-badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5" y="15" width="14" height="3" fill="#fff"/>
-            <path d="M6 20h12a1 1 0 0 0 1-1v-2H5v2a1 1 0 0 0 1 1z" fill="#fff"/>
-            <rect x="7" y="9" width="10" height="7" fill="#fff"/>
-            <circle cx="8" cy="10" r="4" fill="#fff"/>
-            <circle cx="12" cy="7" r="4.6" fill="#fff"/>
-            <circle cx="16" cy="10" r="4" fill="#fff"/>
+          <svg viewBox="0 0 512 512" role="img" aria-label="Chef Gui" xmlns="http://www.w3.org/2000/svg">
+            <rect width="512" height="512" rx="112" fill="#E63946"/>
+            <path d="M256 150c-26-40-70-52-104-46 4 34 24 70 66 82" fill="#3F8F52"/>
+            <path d="M256 150c26-40 70-52 104-46-4 34-24 70-66 82" fill="#348045"/>
+            <circle cx="256" cy="300" r="128" fill="#FFF8F1"/>
+            <circle cx="256" cy="300" r="128" fill="none" stroke="#C22733" stroke-width="10" opacity="0.25"/>
+            <ellipse cx="212" cy="256" rx="30" ry="22" fill="#E63946" opacity="0.14"/>
+            <g stroke="#C22733" stroke-width="14" stroke-linecap="round" fill="none">
+              <path d="M224 258v84"/>
+              <path d="M288 258v84"/>
+            </g>
           </svg>
         </span>
         <div class="brandmark-text">
