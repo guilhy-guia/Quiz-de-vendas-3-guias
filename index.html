@@ -6,69 +6,75 @@
     --font-display: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
     --font-body: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
     --font-mono: ui-monospace, 'Cascadia Code', 'Consolas', 'SFMono-Regular', Menlo, monospace;
-    --ink: #211A16;
-    --ink-soft: #6B5F54;
-    --paper: #F3EEE1;
-    --paper-raised: #FBF8F0;
-    --line: rgba(33, 26, 22, 0.14);
-    --shadow: rgba(33, 26, 22, 0.14);
-    --marinada: #7C2333;
-    --marinada-soft: #F1DEE1;
-    --tempero: #B26A15;
-    --tempero-soft: #F5E5C9;
-    --praticidade: #3E5943;
-    --praticidade-soft: #DCE6DA;
-    --accent: #B26A15;
+    /* Brand tokens (Guias Chef Gui): warm cream + signature red, shared across all guides */
+    --ink: #2B2118;
+    --ink-soft: #6B5D52;
+    --paper: #FFF8F1;
+    --paper-raised: #FFFFFF;
+    --line: #EFE2D4;
+    --shadow: rgba(120, 72, 40, 0.16);
+    --accent: #E63946;
+    --accent-dark: #C22733;
+    /* Result themes reuse the guide app's own category-accent colors */
+    --marinada: #C1502E;
+    --marinada-soft: rgba(193, 80, 46, 0.14);
+    --tempero: #B9852B;
+    --tempero-soft: rgba(185, 133, 43, 0.14);
+    --praticidade: #3E6F8E;
+    --praticidade-soft: rgba(62, 111, 142, 0.14);
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --ink: #F1EBDD;
-      --ink-soft: #BFB2A0;
-      --paper: #191310;
-      --paper-raised: #241C17;
-      --line: rgba(241, 235, 221, 0.14);
-      --shadow: rgba(0, 0, 0, 0.4);
-      --marinada: #E58FA1;
-      --marinada-soft: rgba(229, 143, 161, 0.16);
-      --tempero: #E5A754;
-      --tempero-soft: rgba(229, 167, 84, 0.16);
-      --praticidade: #8AB292;
-      --praticidade-soft: rgba(138, 178, 146, 0.16);
-      --accent: #E5A754;
+      --ink: #F5EAE0;
+      --ink-soft: #C9B6A3;
+      --paper: #1B140F;
+      --paper-raised: #251B14;
+      --line: rgba(245, 234, 224, 0.14);
+      --shadow: rgba(0, 0, 0, 0.45);
+      --accent: #FF5C68;
+      --accent-dark: #E63946;
+      --marinada: #E37456;
+      --marinada-soft: rgba(227, 116, 86, 0.18);
+      --tempero: #D9A54A;
+      --tempero-soft: rgba(217, 165, 74, 0.18);
+      --praticidade: #6FA0C2;
+      --praticidade-soft: rgba(111, 160, 194, 0.18);
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --ink: #F1EBDD;
-    --ink-soft: #BFB2A0;
-    --paper: #191310;
-    --paper-raised: #241C17;
-    --line: rgba(241, 235, 221, 0.14);
-    --shadow: rgba(0, 0, 0, 0.4);
-    --marinada: #E58FA1;
-    --marinada-soft: rgba(229, 143, 161, 0.16);
-    --tempero: #E5A754;
-    --tempero-soft: rgba(229, 167, 84, 0.16);
-    --praticidade: #8AB292;
-    --praticidade-soft: rgba(138, 178, 146, 0.16);
-    --accent: #E5A754;
+    --ink: #F5EAE0;
+    --ink-soft: #C9B6A3;
+    --paper: #1B140F;
+    --paper-raised: #251B14;
+    --line: rgba(245, 234, 224, 0.14);
+    --shadow: rgba(0, 0, 0, 0.45);
+    --accent: #FF5C68;
+    --accent-dark: #E63946;
+    --marinada: #E37456;
+    --marinada-soft: rgba(227, 116, 86, 0.18);
+    --tempero: #D9A54A;
+    --tempero-soft: rgba(217, 165, 74, 0.18);
+    --praticidade: #6FA0C2;
+    --praticidade-soft: rgba(111, 160, 194, 0.18);
     color-scheme: dark;
   }
   :root[data-theme="light"] {
-    --ink: #211A16;
-    --ink-soft: #6B5F54;
-    --paper: #F3EEE1;
-    --paper-raised: #FBF8F0;
-    --line: rgba(33, 26, 22, 0.14);
-    --shadow: rgba(33, 26, 22, 0.14);
-    --marinada: #7C2333;
-    --marinada-soft: #F1DEE1;
-    --tempero: #B26A15;
-    --tempero-soft: #F5E5C9;
-    --praticidade: #3E5943;
-    --praticidade-soft: #DCE6DA;
-    --accent: #B26A15;
+    --ink: #2B2118;
+    --ink-soft: #6B5D52;
+    --paper: #FFF8F1;
+    --paper-raised: #FFFFFF;
+    --line: #EFE2D4;
+    --shadow: rgba(120, 72, 40, 0.16);
+    --accent: #E63946;
+    --accent-dark: #C22733;
+    --marinada: #C1502E;
+    --marinada-soft: rgba(193, 80, 46, 0.14);
+    --tempero: #B9852B;
+    --tempero-soft: rgba(185, 133, 43, 0.14);
+    --praticidade: #3E6F8E;
+    --praticidade-soft: rgba(62, 111, 142, 0.14);
     color-scheme: light;
   }
 
@@ -110,9 +116,53 @@
   .card {
     background: var(--paper-raised);
     border: 1px solid var(--line);
-    border-radius: 14px;
+    border-radius: 18px;
     padding: clamp(28px, 5vw, 48px);
     box-shadow: 0 1px 2px var(--shadow), 0 18px 40px -24px var(--shadow);
+  }
+
+  .brandmark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 22px;
+  }
+  .brandmark-badge {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 16px;
+    background: var(--accent);
+    box-shadow: 0 8px 20px -4px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  .brandmark-badge svg { width: 24px; height: 24px; }
+  .brandmark-text { line-height: 1.25; }
+  .brandmark-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--ink);
+  }
+  .brandmark-sub {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .kicker {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: right;
+    margin: 0 0 4px;
   }
 
   .eyebrow {
@@ -162,24 +212,27 @@
 
   .btn {
     font-family: var(--font-body);
-    font-weight: 600;
+    font-weight: 700;
     font-size: 15px;
     border: none;
-    border-radius: 9px;
-    padding: 15px 22px;
+    border-radius: 999px;
+    padding: 15px 24px;
     cursor: pointer;
-    background: var(--ink);
-    color: var(--paper);
-    transition: transform 0.15s ease, opacity 0.15s ease;
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 8px 22px -6px color-mix(in srgb, var(--accent) 55%, transparent);
+    transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
   }
-  .btn:hover { opacity: 0.88; }
-  .btn:active { transform: scale(0.98); }
-  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .btn:hover { background: var(--accent-dark); }
+  .btn:active { transform: scale(0.96); }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   .btn-ghost {
     background: transparent;
     color: var(--ink);
     border: 1px solid var(--line);
+    box-shadow: none;
   }
+  .btn-ghost:hover { background: var(--paper); opacity: 1; }
 
   .progress-track {
     display: flex;
@@ -211,7 +264,7 @@
     background: var(--paper);
     color: var(--ink);
     border: 1px solid var(--line);
-    border-radius: 10px;
+    border-radius: 14px;
     padding: 16px 18px;
     font-family: var(--font-body);
     font-weight: 400;
@@ -250,9 +303,12 @@
   .result-badge.temperos { background: var(--tempero-soft); color: var(--tempero); }
   .result-badge.praticidade { background: var(--praticidade-soft); color: var(--praticidade); }
 
-  .result-cta.marinadas { background: var(--marinada); color: var(--paper-raised); }
-  .result-cta.temperos { background: var(--tempero); color: var(--paper-raised); }
-  .result-cta.praticidade { background: var(--praticidade); color: var(--paper-raised); }
+  .result-cta.marinadas { background: var(--marinada); color: #fff; box-shadow: 0 8px 22px -6px color-mix(in srgb, var(--marinada) 55%, transparent); }
+  .result-cta.marinadas:hover { background: color-mix(in srgb, var(--marinada) 85%, black); }
+  .result-cta.temperos { background: var(--tempero); color: #fff; box-shadow: 0 8px 22px -6px color-mix(in srgb, var(--tempero) 55%, transparent); }
+  .result-cta.temperos:hover { background: color-mix(in srgb, var(--tempero) 85%, black); }
+  .result-cta.praticidade { background: var(--praticidade); color: #fff; box-shadow: 0 8px 22px -6px color-mix(in srgb, var(--praticidade) 55%, transparent); }
+  .result-cta.praticidade:hover { background: color-mix(in srgb, var(--praticidade) 85%, black); }
 
   .breakdown { margin: 28px 0 8px; padding-top: 22px; border-top: 1px solid var(--line); }
   .breakdown-title {
@@ -286,7 +342,23 @@
   <div class="card">
 
     <section id="screen-intro" class="screen active">
-      <p class="eyebrow"><span>Guia de Sabor</span><span>Quiz · 8 perguntas</span></p>
+      <div class="brandmark">
+        <span class="brandmark-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="15" width="14" height="3" fill="#fff"/>
+            <path d="M6 20h12a1 1 0 0 0 1-1v-2H5v2a1 1 0 0 0 1 1z" fill="#fff"/>
+            <rect x="7" y="9" width="10" height="7" fill="#fff"/>
+            <circle cx="8" cy="10" r="4" fill="#fff"/>
+            <circle cx="12" cy="7" r="4.6" fill="#fff"/>
+            <circle cx="16" cy="10" r="4" fill="#fff"/>
+          </svg>
+        </span>
+        <div class="brandmark-text">
+          <p class="brandmark-title">Chef Gui</p>
+          <p class="brandmark-sub">Guias de Cozinha</p>
+        </div>
+      </div>
+      <p class="kicker">Quiz · 8 perguntas</p>
       <h1>Qual dos 3 guias é o seu?</h1>
       <p>Marinadas, Temperos ou Praticidade na Cozinha? Responda 8 perguntas rápidas sobre como você realmente cozinha no dia a dia e a gente te mostra qual guia vai fazer mais diferença na sua cozinha agora.</p>
       <button class="btn" id="btn-start">Começar o quiz</button>
@@ -303,6 +375,22 @@
     </section>
 
     <section id="screen-result" class="screen">
+      <div class="brandmark">
+        <span class="brandmark-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="15" width="14" height="3" fill="#fff"/>
+            <path d="M6 20h12a1 1 0 0 0 1-1v-2H5v2a1 1 0 0 0 1 1z" fill="#fff"/>
+            <rect x="7" y="9" width="10" height="7" fill="#fff"/>
+            <circle cx="8" cy="10" r="4" fill="#fff"/>
+            <circle cx="12" cy="7" r="4.6" fill="#fff"/>
+            <circle cx="16" cy="10" r="4" fill="#fff"/>
+          </svg>
+        </span>
+        <div class="brandmark-text">
+          <p class="brandmark-title">Chef Gui</p>
+          <p class="brandmark-sub">Guias de Cozinha</p>
+        </div>
+      </div>
       <span class="result-badge" id="result-badge"></span>
       <h1 id="result-title"></h1>
       <p class="tagline" id="result-tagline"></p>
